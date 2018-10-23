@@ -1,0 +1,94 @@
+@import './scss/variables.scss';
+
+$borderRadius: 4px;
+
+$cellWidth: 45;
+$gutterSpace: 5;
+
+$rows: 15;
+$cols: 10;
+
+$boardColor: lighten($bgColor, 6%);
+$tileColor: lighten($bgColor, 11%);
+
+.btn {
+  border: none;
+  outline: 0;
+  background-color: lighten($color: $bgColor, $amount: 10%);
+  padding: 0.7rem 1.2rem;
+  color: white;
+  font-size: 1.3rem;
+  border-radius: $borderRadius;
+}
+
+.container {
+  text-align: center;
+  color: white;
+  header {
+    margin: 2rem 0;
+    h1 {
+      display: inline-block;
+      font-weight: normal;
+      text-transform: uppercase;
+      vertical-align: middle;
+    }
+    .btn-start-game {
+      margin-left: 2rem;
+      text-transform: uppercase;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+  }
+  .board {
+    $boardWidth: ($cellWidth * $cols) + ($gutterSpace * ($cols - 1));
+    $boardHeight: ($cellWidth * $rows)+ ($gutterSpace * ($rows - 1));
+
+    margin: 0 auto;
+    width: #{$boardWidth}px;
+    height: #{$boardHeight}px;
+    background-color: $boardColor;
+    padding: #{$gutterSpace}px;
+
+    position: relative;
+
+    &::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    .board-cell {
+      float: left;
+      width: #{$cellWidth}px;
+      height: #{$cellWidth}px;
+      background-color: $tileColor;
+      margin-right: #{$gutterSpace}px;
+      margin-bottom: #{$gutterSpace}px;
+      &:nth-child(#{$cols}n) {
+        margin-right: 0;
+      }
+    }
+
+    .bricks-container {
+      position: absolute;
+      left: #{$gutterSpace}px;
+      top: #{$gutterSpace}px;
+      .brick {
+        width: #{$cellWidth}px;
+        height: #{$cellWidth}px;
+        background-color: red;
+        position: absolute;
+        transition: all 0.5s ease;
+        @for $rowIndex from 0 to $rows {
+          @for $colIndex from 0 to $cols {
+            &.brick-#{$rowIndex}-#{$colIndex} {
+              $x: #{($cellWidth + $gutterSpace) * $colIndex}px;
+              $y: #{($cellWidth + $gutterSpace) * $rowIndex}px;
+              transform: translate($x, $y);
+            }
+          }
+        }
+      }
+    }
+  }
+}
