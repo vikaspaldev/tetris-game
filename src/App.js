@@ -1,31 +1,25 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./App.scss";
 import Board from "./components/board/Board";
 
-class App extends Component {
-  state = {
-    canPlayGame: false
+const App = () => {
+  const [canPlayGame, setCanPlayGame] = useState(false);
+
+  const handleBtnClicked = () => {
+    setCanPlayGame(true);
   };
-  handleBtnClicked = () => {
-    const canPlayGame = true;
-    this.setState({ canPlayGame: canPlayGame });
-  };
-  render() {
-    return (
-      <div className="container">
-        <header>
-          <h1>Tetris game</h1>
-          <button
-            className="btn btn-start-game"
-            onClick={this.handleBtnClicked}
-          >
-            Start Game
-          </button>
-        </header>
-        <Board canPlayGame={this.state.canPlayGame} />
-      </div>
-    );
-  }
-}
+
+  return (
+    <div className="container">
+      <header>
+        <h1>Tetris game</h1>
+        <button className="btn btn-start-game" onClick={handleBtnClicked}>
+          Start Game
+        </button>
+      </header>
+      <Board canPlayGame={canPlayGame} />
+    </div>
+  );
+};
 
 export default App;

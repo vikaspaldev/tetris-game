@@ -1,7 +1,7 @@
 import React from "react";
-import Brick from "./BrickBlock";
 import { COLORS, SPEED, BOARD_SIZE } from "../../utils/constants";
 import { randomNumber } from "../../utils/helperMethods";
+import { BrickComponent } from "./BrickComponent";
 
 class BrickController extends React.Component {
   constructor(props) {
@@ -9,7 +9,7 @@ class BrickController extends React.Component {
     this.state = {
       activeBrick: null,
       grid: [],
-      timerId: null
+      timerId: null,
     };
   }
   componentWillReceiveProps(nextProps, nextContext) {
@@ -161,31 +161,13 @@ class BrickController extends React.Component {
     const brick = {
       row: row,
       col: col,
-      bgColor: bgColor
+      bgColor: bgColor,
     };
     grid[row][col] = brick;
     this.setState({ grid: grid, activeBrick: brick });
   }
   render() {
-    return (
-      <div className="bricks-container">
-        {this.state.grid.map(rows => {
-          return rows.map(brick => {
-            if (!brick) return null;
-            const key = `${brick.row}-${brick.col}`;
-
-            return (
-              <Brick
-                key={key}
-                row={brick.row}
-                col={brick.col}
-                bgColor={brick.bgColor}
-              />
-            );
-          });
-        })}
-      </div>
-    );
+    return <BrickComponent grid={this.state.grid} />;
   }
 }
 
