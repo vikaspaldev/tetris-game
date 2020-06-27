@@ -1,3 +1,4 @@
+/*eslint complexity: [1,5], max-depth: [1, { "max": 2 }]*/
 import React from "react";
 import { COLORS, SPEED, BOARD_SIZE } from "../../utils/constants";
 import { randomNumber } from "../../utils/helperMethods";

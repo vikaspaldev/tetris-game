@@ -1,6 +1,6 @@
 import React from "react";
 import { BOARD_SIZE } from "../../utils/constants";
-import BrickController from "./../brick/BrickController";
+import BrickController from "./../brick-v2/BrickController";
 import BoardRow from "./BoardRow";
 
 const Board = ({ canPlayGame }) => {

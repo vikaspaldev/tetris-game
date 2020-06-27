@@ -1,6 +1,9 @@
 {
   "extends": ["react-app", "plugin:prettier/recommended"],
   "rules": {
-    "no-console": 2
+    "no-console": "error",
+    "complexity": ["error", 5],
+    "max-nested-callbacks": ["error", 2],
+    "max-depth": ["error", { "max": 2 }]
   }
 }
