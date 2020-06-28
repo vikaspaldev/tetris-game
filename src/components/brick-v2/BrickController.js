@@ -5,10 +5,6 @@ import { BrickComponent } from "../brick/BrickComponent";
 const BrickController = ({ canPlayGame }) => {
   const { grid } = useBrickControllerHook(canPlayGame);
 
-  if (!grid) {
-    return null;
-  }
-
   return <BrickComponent grid={grid} />;
 };
 

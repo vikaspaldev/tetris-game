@@ -1,14 +1,22 @@
-import { useEffect, useReducer, useCallback } from "react";
+import { useEffect, useReducer } from "react";
 import { reducer } from "./brick.reducer";
 import { actions } from "./brick.constants";
-import { initGrid } from "./brick.utils";
+import { getActiveBrick, initGrid } from "./brick.utils";
 import { randomNumber } from "../../utils/helperMethods";
-import { BOARD_SIZE, COLORS } from "../../utils/constants";
+import { BOARD_SIZE, COLORS, SPEED } from "../../utils/constants";
+import { useInterval } from "../../utils/hooks/useInterval";
 
 export const useBrickControllerHook = canPlayGame => {
   const [grid, dispatch] = useReducer(reducer, initGrid());
 
-  const addBrick = useCallback(() => {
+  const moveDown = activeBrick => {
+    dispatch({
+      type: actions.MOVE_DOWN,
+      data: activeBrick,
+    });
+  };
+
+  const addBrick = () => {
     const row = 0;
     const col = randomNumber(0, BOARD_SIZE.col);
 
@@ -31,8 +39,25 @@ export const useBrickControllerHook = canPlayGame => {
       type: actions.ADD_BRICK,
       data: brick,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  };
+
+  useInterval(() => {
+    if (!canPlayGame) {
+      return;
+    }
+    const activeBrick = getActiveBrick(grid);
+
+    const shouldMoveDown =
+      activeBrick &&
+      grid[activeBrick.row + 1] !== undefined &&
+      grid[activeBrick.row + 1][activeBrick.col] === null;
+
+    if (shouldMoveDown) {
+      moveDown(activeBrick);
+    } else {
+      addBrick();
+    }
+  }, SPEED);
 
   const keyboardListender = e => {
     switch (e.key) {
@@ -58,7 +83,6 @@ export const useBrickControllerHook = canPlayGame => {
 
   useEffect(() => {
     if (canPlayGame) {
-      addBrick();
       window.addEventListener("keyup", keyboardListender);
     }
     return () => {
@@ -66,7 +90,7 @@ export const useBrickControllerHook = canPlayGame => {
         window.removeEventListener("keyup", keyboardListender);
       }
     };
-  }, [addBrick, canPlayGame]);
+  }, [canPlayGame]);
 
   return {
     grid,

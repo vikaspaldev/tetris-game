@@ -11,3 +11,17 @@ export const initGrid = () => {
   }
   return grid;
 };
+
+export const getActiveBrick = grid => {
+  let activeBrick;
+
+  grid.forEach(rows => {
+    rows.forEach(brick => {
+      if (!activeBrick && brick && brick.isActive) {
+        activeBrick = brick;
+      }
+    });
+  });
+
+  return activeBrick;
+};
