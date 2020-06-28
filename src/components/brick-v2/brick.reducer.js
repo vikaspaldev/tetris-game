@@ -1,7 +1,13 @@
 import { actions } from "./brick.constants";
 import { reducerWithLogger } from "./../../utils/reducerWithLogger";
-import { getActiveBrick } from "./brick.utils";
+import { getActiveBrick, initGrid } from "./brick.utils";
 import { BOARD_SIZE } from "../../utils/constants";
+
+const onGameOver = prevGrid => {
+  alert("Game over");
+  const newGrid = initGrid();
+  return [...newGrid];
+};
 
 const getValueAfterCheckingBoundary = (rowOrCol, direction) => {
   if (direction === "left" && rowOrCol > 0) {
@@ -61,7 +67,30 @@ const onMoveRight = (prevGrid, data) => {
 };
 
 const onMoveStraightDown = (prevGrid, data) => {
-  return [...prevGrid];
+  const updatedGrid = [...prevGrid];
+
+  const activeBrick = getActiveBrick(updatedGrid);
+
+  if (!activeBrick) {
+    debugger;
+    return;
+  }
+
+  const { row, col } = activeBrick;
+
+  let rowIndex = row;
+  while (
+    rowIndex < updatedGrid.length - 1 &&
+    updatedGrid[rowIndex + 1][col] === null
+  ) {
+    rowIndex += 1;
+  }
+
+  updatedGrid[row][col] = null;
+  activeBrick.row = rowIndex;
+  updatedGrid[rowIndex][col] = activeBrick;
+
+  return updatedGrid;
 };
 
 const onAddBrick = (prevGrid, brickData) => {
@@ -91,6 +120,7 @@ export const reducer = reducerWithLogger((prevGrid, action) => {
     [actions.MOVE_DOWN]: onMoveDown,
     [actions.MOVE_RIGHT]: onMoveRight,
     [actions.MOVE_STRAIGHT_DOWN]: onMoveStraightDown,
+    [actions.GAME_OVER]: onGameOver,
   };
 
   const func = actionToFuncMapping[action.type];
