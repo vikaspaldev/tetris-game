@@ -1,26 +1,63 @@
 import { actions } from "./brick.constants";
 import { reducerWithLogger } from "./../../utils/reducerWithLogger";
 import { getActiveBrick } from "./brick.utils";
+import { BOARD_SIZE } from "../../utils/constants";
 
-const onMoveLeft = (prevGrid, data) => {
-  return [...prevGrid];
+const getValueAfterCheckingBoundary = (rowOrCol, direction) => {
+  if (direction === "left" && rowOrCol > 0) {
+    return rowOrCol - 1;
+  }
+  if (direction === "right" && rowOrCol < BOARD_SIZE.col - 1) {
+    return rowOrCol + 1;
+  }
+  return rowOrCol;
 };
 
-const onMoveDown = (prevGrid, data) => {
+const moveBrick = (prevGrid, direction) => {
   const updatedGrid = [...prevGrid];
 
   const activeBrick = getActiveBrick(updatedGrid);
-  const { row, col } = activeBrick;
-  updatedGrid[row + 1][col] = activeBrick;
-  updatedGrid[row][col] = null;
+  const { row: oldRow, col: oldCol } = activeBrick;
 
-  activeBrick.row += 1;
+  let newRow = oldRow;
+  let newCol = oldCol;
+
+  switch (direction) {
+    case "left":
+      newCol = getValueAfterCheckingBoundary(newCol, direction);
+      break;
+    case "right":
+      newCol = getValueAfterCheckingBoundary(newCol, direction);
+      break;
+    case "down":
+      newRow += 1;
+      break;
+    default:
+      break;
+  }
+
+  updatedGrid[oldRow][oldCol] = null;
+  updatedGrid[newRow][newCol] = activeBrick;
+
+  if (direction === "down") {
+    activeBrick.row = newRow;
+  } else {
+    activeBrick.col = newCol;
+  }
 
   return updatedGrid;
 };
 
+const onMoveLeft = (prevGrid, data) => {
+  return moveBrick(prevGrid, "left");
+};
+
+const onMoveDown = (prevGrid, data) => {
+  return moveBrick(prevGrid, "down");
+};
+
 const onMoveRight = (prevGrid, data) => {
-  return [...prevGrid];
+  return moveBrick(prevGrid, "right");
 };
 
 const onMoveStraightDown = (prevGrid, data) => {

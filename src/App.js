@@ -1,19 +1,25 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./App.scss";
 import Board from "./components/board/Board";
 
 const App = () => {
   const [canPlayGame, setCanPlayGame] = useState(false);
+  const ref = useRef(null);
 
   const handleBtnClicked = () => {
     setCanPlayGame(true);
+    ref.current.blur();
   };
 
   return (
     <div className="container">
       <header>
         <h1>Tetris game</h1>
-        <button className="btn btn-start-game" onClick={handleBtnClicked}>
+        <button
+          ref={ref}
+          className="btn btn-start-game"
+          onClick={handleBtnClicked}
+        >
           Start Game
         </button>
       </header>

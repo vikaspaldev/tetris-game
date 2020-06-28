@@ -1,12 +1,12 @@
-@import './scss/variables.scss';
+@import "./scss/variables.scss";
 
 $borderRadius: 4px;
 
-$cellWidth: 45;
+$cellWidth: 40;
 $gutterSpace: 5;
 
-$rows: 15;
-$cols: 10;
+$rows: 12;
+$cols: 8;
 
 $boardColor: lighten($bgColor, 6%);
 $tileColor: lighten($bgColor, 11%);
@@ -19,6 +19,9 @@ $tileColor: lighten($bgColor, 11%);
   color: white;
   font-size: 1.3rem;
   border-radius: $borderRadius;
+  &:focus {
+    outline: 1px dashed;
+  }
 }
 
 .container {
@@ -52,7 +55,7 @@ $tileColor: lighten($bgColor, 11%);
     position: relative;
 
     &::after {
-      content: '';
+      content: "";
       display: block;
       clear: both;
     }
