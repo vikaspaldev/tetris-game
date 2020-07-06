@@ -1,4 +1,4 @@
-import { BOARD_SIZE } from "./../../utils/constants";
+import { BOARD_SIZE } from "../../utils/constants";
 
 export const initGrid = () => {
   const { row, col } = BOARD_SIZE;

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { domUtils } from "../domUtils";
-import { firebaseConstants, getFirebaseConfig } from "./../firebase.utils";
+import { domUtils } from "../../domUtils";
+import { firebaseConstants, getFirebaseConfig } from "./firebase.utils";
 
 export const useFirebase = () => {
   const onFirebaseAppLoaded = () => {

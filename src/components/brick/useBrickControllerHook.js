@@ -41,6 +41,57 @@ export const useBrickControllerHook = canPlayGame => {
     });
   };
 
+  const moveStraightDown = () => {
+    dispatch({
+      type: actions.MOVE_STRAIGHT_DOWN,
+    });
+  };
+
+  const moveLeft = () => {
+    dispatch({
+      type: actions.MOVE_LEFT,
+    });
+  };
+
+  const moveRight = () => {
+    dispatch({
+      type: actions.MOVE_RIGHT,
+    });
+  };
+
+  useEffect(() => {
+    const keyboardListener = e => {
+      const mapping = {
+        ArrowDown: {
+          params: undefined,
+          func: moveStraightDown,
+        },
+        ArrowLeft: {
+          params: undefined,
+          func: moveLeft,
+        },
+        ArrowRight: {
+          params: undefined,
+          func: moveRight,
+        },
+      };
+      const obj = mapping[e.key];
+      if (obj) {
+        const { params, func } = obj;
+        func(params);
+      }
+    };
+
+    if (canPlayGame) {
+      window.addEventListener("keyup", keyboardListener);
+    }
+    return () => {
+      if (canPlayGame) {
+        window.removeEventListener("keyup", keyboardListener);
+      }
+    };
+  }, [canPlayGame]);
+
   useInterval(() => {
     if (!canPlayGame) {
       return;
@@ -58,39 +109,6 @@ export const useBrickControllerHook = canPlayGame => {
       addBrick();
     }
   }, SPEED);
-
-  const keyboardListender = e => {
-    switch (e.key) {
-      case "ArrowDown":
-        dispatch({
-          type: actions.MOVE_STRAIGHT_DOWN,
-        });
-        break;
-      case "ArrowLeft":
-        dispatch({
-          type: actions.MOVE_LEFT,
-        });
-        break;
-      case "ArrowRight":
-        dispatch({
-          type: actions.MOVE_RIGHT,
-        });
-        break;
-      default:
-        break;
-    }
-  };
-
-  useEffect(() => {
-    if (canPlayGame) {
-      window.addEventListener("keyup", keyboardListender);
-    }
-    return () => {
-      if (canPlayGame) {
-        window.removeEventListener("keyup", keyboardListender);
-      }
-    };
-  }, [canPlayGame]);
 
   return {
     grid,

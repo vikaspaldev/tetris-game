@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import "./App.scss";
 import Board from "./components/board/Board";
-import { useFirebase } from "./utils/hooks/useFirebase";
+import { useFirebase } from "./utils/hooks/firebase/useFirebase";
 
 const App = () => {
   const [canPlayGame, setCanPlayGame] = useState(false);

@@ -7,10 +7,12 @@ export const firebaseConstants = {
 };
 
 export const getFirebaseConfig = () => {
+  if (process.env.NODE_ENV !== "production") {
+    return;
+  }
   try {
     const config = process.env.REACT_APP_FIREBASE_CONFIG;
-    const firebaseConfig = JSON.parse(config);
-    return firebaseConfig;
+    return JSON.parse(config);
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error("Error parsing config");

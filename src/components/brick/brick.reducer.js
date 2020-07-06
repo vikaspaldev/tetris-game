@@ -1,5 +1,5 @@
 import { actions } from "./brick.constants";
-import { reducerWithLogger } from "./../../utils/reducerWithLogger";
+import { reducerWithLogger } from "../../utils/reducerWithLogger";
 import { getActiveBrick, initGrid } from "./brick.utils";
 import { BOARD_SIZE } from "../../utils/constants";
 
