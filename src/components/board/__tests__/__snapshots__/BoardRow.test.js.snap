@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BoardRow /> should render successfully 1`] = `
+<div>
+  <div
+    class="board-cell"
+  />
+  <div
+    class="board-cell"
+  />
+  <div
+    class="board-cell"
+  />
+  <div
+    class="board-cell"
+  />
+  <div
+    class="board-cell"
+  />
+  <div
+    class="board-cell"
+  />
+  <div
+    class="board-cell"
+  />
+  <div
+    class="board-cell"
+  />
+</div>
+`;

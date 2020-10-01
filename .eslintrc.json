@@ -5,5 +5,14 @@
     "complexity": ["error", 5],
     "max-nested-callbacks": ["error", 2],
     "max-depth": ["error", { "max": 2 }]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.test.js"],
+      "rules": {
+        "max-nested-callbacks": "off",
+        "max-depth": "off"
+      }
+    }
+  ]
 }

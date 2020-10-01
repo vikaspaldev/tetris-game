@@ -3,7 +3,7 @@
 $borderRadius: 4px;
 
 $cellWidth: 40;
-$gutterSpace: 5;
+$gutterSpace: 0;
 
 $rows: 12;
 $cols: 8;
@@ -44,24 +44,17 @@ $tileColor: lighten($bgColor, 11%);
   }
   .board {
     $boardWidth: ($cellWidth * $cols) + ($gutterSpace * ($cols - 1));
-    $boardHeight: ($cellWidth * $rows)+ ($gutterSpace * ($rows - 1));
 
     margin: 0 auto;
     width: #{$boardWidth}px;
-    height: #{$boardHeight}px;
     background-color: $boardColor;
     padding: #{$gutterSpace}px;
-
     position: relative;
+    display:flex;
+    flex-wrap: wrap;
 
-    &::after {
-      content: "";
-      display: block;
-      clear: both;
-    }
 
     .board-cell {
-      float: left;
       width: #{$cellWidth}px;
       height: #{$cellWidth}px;
       background-color: $tileColor;

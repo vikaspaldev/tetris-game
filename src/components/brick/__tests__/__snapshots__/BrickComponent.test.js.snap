@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BrickComponent /> should not render empty brick 1`] = `
+<div>
+  <div
+    class="bricks-container"
+  />
+</div>
+`;
+
+exports[`<BrickComponent /> should render successfully 1`] = `
+<div>
+  <div
+    class="bricks-container"
+  >
+    <div
+      class="brick brick-0-1"
+      style="background-color: red;"
+    />
+  </div>
+</div>
+`;
